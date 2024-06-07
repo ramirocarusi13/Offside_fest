@@ -61,7 +61,8 @@ const Main = () => {
                         <li className="text-sm font-medium pt-5">DJ LAALO</li>
                         <li className="text-sm font-medium pt-1">DJ RUGG</li>
                         <li className="text-sm font-medium pt-1">DJ SANTAA</li>
-                        <li className="text-sm font-medium pt-1 pb-2">DJ ALE ORIO</li>
+                        <li className="text-sm font-medium pt-1 ">DJ ALE ORIO</li>
+                        <li className="text-sm font-medium pt-1 pb-2">DJ GONZA HILDD</li>
                     </ul>
                     <div className="flex justify-end pr-4">
                         <a href="https://www.instagram.com/" className="flex items-center hover:bg-purple-800 text-white font-light text-base py-2 px-2 rounded-full">
