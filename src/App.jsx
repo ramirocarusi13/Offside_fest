@@ -1,17 +1,17 @@
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import Main from "./components/Main"
+import Main from "./pages/Main"
+import MainRouter from './routes/MainRouter'
+import { BrowserRouter } from 'react-router-dom'
+
 
 
 export default function App() {
   return (
     <>
-      <div >
-        <Header />
-        <Main />
-        <Footer />
-
-      </div>
+      <BrowserRouter >
+            <MainRouter />
+      </BrowserRouter>
     </>
   )
 }

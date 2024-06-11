@@ -1,7 +1,21 @@
+// Main.jsx
 import React, { useState } from 'react';
 import ErrorIcon from '@material-ui/icons/Error';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import HeadsetIcon from '@material-ui/icons/Headset';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ContadorTotal from '../components/ContadorTotal'; // Importa el nuevo componente
+import Footer from '../components/Footer';
+
+export const formatCurrency = (value) => {
+    return value.toLocaleString('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2,
+    });
+};
 
 const Main = () => {
     const [contador, setContador] = useState(0);
@@ -9,11 +23,21 @@ const Main = () => {
     const [servicioWeb, setServicioWeb] = useState(0);
     const [animate, setAnimate] = useState('');
     const [animateTotal, setAnimateTotal] = useState('');
+    const navigate = useNavigate();
+
+    const handlePagarClick = () => {
+        if (contador === 0) {
+            toast.error('Por favor, seleccione cuántas entradas desea.');
+        } else {
+            navigate(`formPago/${contador}`);
+        }
+    };
+
 
     const incrementarContador = () => {
         const newContador = contador + 1;
         const newServicioWeb = newContador * 300;
-        const newTotal = (newContador * 5000) + newServicioWeb;
+        const newTotal = (newContador * 6000) + newServicioWeb;
 
         setContador(newContador);
         setServicioWeb(newServicioWeb);
@@ -28,7 +52,7 @@ const Main = () => {
         if (contador > 0) {
             const newContador = contador - 1;
             const newServicioWeb = newContador * 300;
-            const newTotal = (newContador * 5000) + newServicioWeb;
+            const newTotal = (newContador * 6000) + newServicioWeb;
 
             setContador(newContador);
             setServicioWeb(newServicioWeb);
@@ -40,13 +64,7 @@ const Main = () => {
         }
     };
 
-    const formatCurrency = (value) => {
-        return value.toLocaleString('es-AR', {
-            style: 'currency',
-            currency: 'ARS',
-            minimumFractionDigits: 2,
-        });
-    };
+    
 
     return (
         <div className="flex flex-col items-center p-4 w-full ">
@@ -79,7 +97,7 @@ const Main = () => {
                                 <button className={`bg-blue-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ${animate}`}>
                                     {contador}
                                 </button>
-                                <h1 className="pl-5 text-xl font-bold">{formatCurrency(5000)}</h1>
+                                <h1 className="pl-5 text-xl font-bold">{formatCurrency(6000)}</h1>
                             </div>
                             <div className="flex items-center justify-end">
                                 <button onClick={decrementarContador} className="bg-blue-950 hover:bg-blue-700 text-white font-light py-2 px-4 m-2 rounded-full">-</button>
@@ -154,19 +172,30 @@ const Main = () => {
 
 
             </div>
-            <div className=" fixed bottom-0 w-full  bg-inherit p-4  bg-violet-950  rounded-lg  flex flex-row justify-between items-center max-w-screen-md">
-                <div>
-                    <h1 className={`text-xl font-bold ${animateTotal}`}>Total: {formatCurrency(total)}</h1>
-                    <p className={`text-xs ${animateTotal}`}>Servicio Web: {formatCurrency(servicioWeb)}</p>
+            <div className="flex flex-col items-center p-4  w-full ">
+                {/* Contenido del componente */}
+                <div className=" fixed bottom-0 w-full  bg-inherit p-4  bg-violet-950  rounded-lg  flex flex-row justify-between items-center max-w-screen-md">
+                    <ContadorTotal
+                        contador={contador}
+                        total={total}
+                        animateTotal={animateTotal}
+                        formatCurrency={formatCurrency}
+                        servicioWeb={servicioWeb}
+                    />
+                    <div>
+                        <button onClick={handlePagarClick} className='bg-pink-800 rounded-full py-3 px-4'>PAGAR</button>
+                        <ToastContainer />
+                    </div>
                 </div>
-                <div>
-                    <button className='bg-pink-800 rounded-full py-3 px-4'>PAGAR</button>
-                </div>
+            </div>
+            <div>
+                <Footer />
             </div>
 
 
 
-        </div>
+
+        </div >
     );
 };
 
