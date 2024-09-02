@@ -1,14 +1,14 @@
-// MainRouter.jsx
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Pago from '../pages/Pago';
 import Main from '../pages/Main';
-import FormPago from '../pages/FormPago'; // Importación por defecto
 
 const MainRouter = () => {
     return (
         <Routes>
-            <Route path="Offside_fest" element={<Main />} />
-            <Route path="Offside_fest/formPago/:count" element={<FormPago />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/Pago/:count" element={<Pago />} />
         </Routes>
     );
 };
